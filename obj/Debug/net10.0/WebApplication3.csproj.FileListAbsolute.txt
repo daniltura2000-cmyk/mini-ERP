@@ -31,3 +31,4 @@ C:\Users\vlad2\RiderProjects\WebApplication3\WebApplication3\obj\Debug\net10.0\r
 C:\Users\vlad2\RiderProjects\WebApplication3\WebApplication3\obj\Debug\net10.0\WebApplication3.pdb
 C:\Users\vlad2\RiderProjects\WebApplication3\WebApplication3\obj\Debug\net10.0\WebApplication3.genruntimeconfig.cache
 C:\Users\vlad2\RiderProjects\WebApplication3\WebApplication3\obj\Debug\net10.0\ref\WebApplication3.dll
+C:\Users\vlad2\RiderProjects\WebApplication3\WebApplication3\obj\Debug\net10.0\WebApplication3.sourcelink.json

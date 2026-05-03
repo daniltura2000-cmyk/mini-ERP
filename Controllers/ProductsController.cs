@@ -1,47 +1,39 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿namespace WebApplication3.DTO;
+
+
+using Microsoft.AspNetCore.Mvc;
 using WebApplication3.Models;
 
-namespace WebApplication3.Controllers;
-
-// [ApiController] говорит фреймворку, что этот класс обрабатывает HTTP-запросы
-// и автоматически включает некоторые полезные фишки (например, базовую валидацию).
-[ApiController] 
-// [Route] задает базовый адрес. "[controller]" подставит имя класса без слова Controller. 
-// Получится адрес: /api/products
-[Route("api/[controller]")] 
+[ApiController]
+[Route("api/products")]
 public class ProductsController : ControllerBase
 {
-    // Пока у нас нет базы данных, сымитируем ее с помощью статического списка
-    private static readonly List<Product> _products = new()
-    {
-        new Product(1, 1500.50m, "Ноутбук", "Хороший рабочий ноутбук"),
-        new Product(2, 300.00m, "Мышка", "Беспроводная мышь")
-    };
+   private static readonly List<Product> _products = new()
+   {
+      new Product(1, 500, "sommeawmeas", "somedescription"),
+      new Product(2, 100, "some", "somedescription"),
+   };
+   
+   
+   public List<Product> GetAllProducts()
+   {
+      return _products;
+   }
 
-    // Метод для получения ВСЕХ товаров
-    // Обрабатывает запрос: GET /api/products
-    [HttpGet]
-    public IActionResult GetAllProducts()
-    {
-        // Возвращаем статус 200 (OK) и список товаров
-        return Ok(_products); 
-    }
+   // 3. Метод поиска по ID
+   public Product? GetProductById(int id)
+   {
+      return _products.FirstOrDefault(p => p.Id == id);
+   }
 
-    // Метод для получения ОДНОГО товара по его Id
-    // Обрабатывает запрос: GET /api/products/1
-    [HttpGet("{id}")]
-    public IActionResult GetProductById(int id)
-    {
-        // Ищем товар с помощью LINQ
-        var product = _products.FirstOrDefault(p => p.Id == id);
-
-        // Если товар не найден — возвращаем статус 404 (Not Found)
-        if (product == null)
-        {
-            return NotFound(new { Message = $"Товар с ID {id} не найден" });
-        }
-
-        // Если нашли — возвращаем 200 (OK) и сам товар
-        return Ok(product);
-    }
+   // 4. Метод создания нового товара
+   public Product CreateProduct(CreateProductDto dto)
+   {
+      int newId = _products.Count + 1;
+      var newProduct = new Product(newId, dto.Price, dto.Name, dto.Description);
+        
+      _products.Add(newProduct);
+        
+      return newProduct;
+   }
 }
